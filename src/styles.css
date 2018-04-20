@@ -1,1 +1,82 @@
-/* You can add global styles to this file, and also import other style files */
+.double-input {
+    display: inline-block;
+    width: 48% !important;
+}
+
+.double-input-modal {
+    display: inline-block;
+    width: 45% !important;
+}
+
+.table-header-small {
+    font-size: 1.1vw;
+}
+
+.table-header-usual {
+    font-size: 1.2vw;
+}
+
+.table-value-usual {
+    font-size: 1.1vw;
+}
+
+.table-value-small {
+    font-size: 1.0vw;
+}
+
+.shown-modal {
+    display: block !important;
+}
+
+.arrow-icon {
+    display: block !important;
+    margin-top: 2.0vw;
+    margin-bottom: 2.0vw;
+}
+
+.display-relative {
+    display: block !important;
+}
+
+.required-sign {
+    display: inline-block;
+    color: #dc3545;
+}
+
+.arrow-block {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%)
+}
+
+.add-session-button-block {
+    text-align: center !important;
+}
+
+.add-session-button {
+    display: inline-block !important;
+    width: 15vw;
+}
+
+.title-main {
+    margin-top: 15px;
+}
+
+.large-checkbox {
+    height: 1.9vw;
+    width: 1.9vw;
+}
+
+.overlay {
+    display: block; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}

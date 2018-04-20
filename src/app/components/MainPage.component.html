@@ -1,0 +1,129 @@
+<div class="main_page">
+    <h1 class="title-main">{{message}}</h1>
+</div>
+<div class="body-container">
+    <div clas="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 offset-xs-0 offset-sm-0 offset-md-0 offset-lg-0">
+            <form [formGroup]="form" align="center">
+                <div class="form-group">
+                    <label for="txtName">Name <i class="fa fa-asterisk required-sign"></i></label>
+                    <input class="form-control" type="text" formControlName="name">
+                </div>
+                <div class="form-group">
+                    <label for="txtSlug">Slug <i class="fa fa-asterisk required-sign"></i></label>
+                    <input class="form-control" type="text" formControlName="slug">
+                </div>
+                <div class="row justify-content-around">
+                    <div class="form-group double-input">
+                        <label for="txtMax">Max. Participants <i class="fa fa-asterisk required-sign"></i></label>
+                        <input class="form-control" type="number" formControlName="max_participants">
+                    </div>
+                    <div class="form-group double-input">
+                        <label for="txtMin">Min. Participants <i class="fa fa-asterisk required-sign"></i></label>
+                        <input class="form-control" type="number" formControlName="min_participants">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="txtIsActive">Is Active </label>
+                    <input class="form-control large-checkbox" type="checkbox" formControlName="isActive">
+                </div>
+                <div class="form-group">
+                    <div class="w3-padding w3-white notranslate">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th class="table-header-usual">Order</th>
+                                    <th class="table-header-usual">Name</th>
+                                    <th class="table-header-usual">Description</th>
+                                    <th class="table-header-usual">Max. Participants</th>
+                                    <th class="table-header-usual">Min. Participants</th>
+                                    <th class="table-header-usual">Is Active</th>
+                                    <th class="table-header-usual">Days</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let session of formData.sessions ; trackBy: order">
+                                    <td>
+                                        <div class="arrow-block">
+                                            <i class="fa fa-chevron-circle-up arrow-icon" *ngIf="session.order != 1" (click)="moveUp(session)"></i>
+                                            <i class="fa fa-chevron-circle-down arrow-icon" *ngIf="session.order != formData.sessions.length" (click)="moveDown(session)"></i>
+                                        </div>
+                                    </td>
+                                    <td class="table-value-usual">{{session.order}}</td>
+                                    <td class="table-value-usual">{{session.name}}</td>
+                                    <td class="table-value-usual">{{session.description || '-'}}</td>
+                                    <td class="table-value-usual">{{session.max_participants}}</td>
+                                    <td class="table-value-usual">{{session.min_participants}}</td>
+                                    <td>{{session.is_active}}</td>
+                                    <table class="table table-hover">
+                                        <th class="table-header-small">Start Date/End Date</th>
+                                            <tr *ngFor="let day of session.days">
+                                                <td class="table-value-small">{{getDateString(day.start_date)}} / {{getDateString(day.end_date)}}</td>
+                                            </tr>
+                                    </table>
+                                    <td class="table-value-usual">
+                                        <button class="btn-primary btn" (click)="updateSession(session)">Update</button>
+                                        <button class="btn-danger btn" (click)="deleteSession(session)">Delete</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="add-session-button-block">
+                            <button (click)="addSession()" class="add-session-button btn btn-primary">Add session</button>
+                        </div>
+                    </div>
+                </div>
+                <button class='btn btn-lg btn-primary' [disabled]="form.invalid || (!sessionsIsUpdated && form.pristine)">Reactive Form Save Button</button>
+            </form>
+        </div>
+    </div>
+</div>
+<div *ngIf="isAdding || isEditing">
+    <div class="overlay"></div>
+    <div class="modal shown-modal" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Session Details</h5>
+            <button type="button" class="close" (click)="cancelUpdate()" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+              <form [formGroup]="form2" align="center">
+                  <div class="form-group">
+                      <label for="txtName">Name <i class="fa fa-asterisk required-sign"></i></label>
+                      <input class="form-control" type="text" formControlName="name">
+                  </div>
+                  <div class="form-group">
+                      <label for="txtDescription">Description</label>
+                      <input class="form-control" type="text" formControlName="description">
+                  </div>
+                  <div class="row justify-content-around">
+                      <div class="form-group double-input-modal">
+                          <label for="txtMax">Max. Participants <i class="fa fa-asterisk required-sign"></i></label>
+                          <input class="form-control" type="number" formControlName="max_participants">
+                      </div>
+                      <div class="form-group double-input-modal">
+                          <label for="txtMin">Min. Participants <i class="fa fa-asterisk required-sign"></i></label>
+                          <input class="form-control" type="number" formControlName="min_participants">
+                      </div>
+                  </div>
+                  <div class="form-group">
+                      <label for="txtIsActive">Is Active</label>
+                      <input class="form-control large-checkbox" type="checkbox" formControlName="isActive">
+                  </div>
+              </form>
+          </div>
+          <div class="display-relative modal-footer">
+              <div class="add-session-button-block">
+                    <button type="button" [disabled]="form2.invalid || form2.pristine" (click)="saveSessionChanges()" class="btn btn-primary add-session-button">Save changes</button>
+                    <button type="button" (click)="cancelUpdate()" class="btn btn-secondary add-session-button" data-dismiss="modal">Close</button>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>

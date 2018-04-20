@@ -1,0 +1,49 @@
+{
+    "id": 1,
+    "name": "Leadership",
+    "slug": "leadership",
+    "description": "",
+    "max_participants": 16,
+    "min_participants": 6,
+    "is_active": true,
+    "sessions": [
+        {
+            "id": 2,
+            "name": "Session 1",
+            "description": "",
+            "max_participants": 16,
+            "min_participants": 6,
+            "is_active": true,
+            "order": 1,
+            "days": [
+              {
+                "id": 1,
+                "start_date": "2018-03-14T08:30:00Z",
+                "end_date": "2018-03-14T16:00:00Z",
+              },
+              {
+                "id": 2,
+                "start_date": "2018-03-15T08:30:00Z",
+                "end_date": "2018-03-15T16:00:00Z",
+              }
+            ]
+        },
+        {
+            "id": 3,
+            "name": "Session 2",
+            "description": "",
+            "max_participants": 16,
+            "min_participants": 6,
+            "is_active": true,
+            "order": 2,
+            "days": [
+              {
+                "id": 3,
+                "start_date": "2018-03-21T08:30:00Z",
+                "end_date": "2018-03-21T16:00:00Z",
+              }
+            ]
+
+        }
+    ]
+}
